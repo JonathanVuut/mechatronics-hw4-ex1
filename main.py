@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import csv
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
@@ -95,8 +96,21 @@ class GradeUpdaterWindow(QMainWindow):
             self.read_csv_data()
 
     def read_csv_data(self):
-        # TODO: Parse the selected CSV and populate the grade data lists.
-        pass
+        self.student_ids=[]
+        self.original_grades=[]
+        self.corrected_grades=[]
+
+        with open(self.selected_file,'r') as f:
+            reader=csv.reader(f)
+            next(reader)
+            for row in reader:
+                if row:
+                    self.student_ids.append(row[0])
+                    grade=int(row[1])
+                    self.original_grades.append(grade)
+                    self.corrected_grades.append(grade)
+        self.update_table()
+
 
     def update_table(self):
         grade_lists = (self.student_ids, self.original_grades, self.corrected_grades)
