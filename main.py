@@ -123,12 +123,33 @@ class GradeUpdaterWindow(QMainWindow):
                 self.table.setItem(row, column, QTableWidgetItem(str(value)))
 
     def calculate_corrected_grades(self):
-        # TODO: Apply the bonus points to the original grades.
-        pass
+        bonus = self.bonus_input.value()
+
+        for i in range(len(self.original_grades)):
+            new_grade = self.original_grades[i] + bonus
+            if new_grade > 100:
+                new_grade = 100
+            self.corrected_grades[i] = new_grade
+
+        self.update_table()
 
     def update_csv_file(self):
-        # TODO: Write the corrected grades to the selected CSV file.
-        pass
+        if not self.selected_file:
+            return
+
+        self.calculate_corrected_grades()
+
+        with open(self.selected_file, 'r') as file:
+            reader = csv.reader(file)
+            header = next(reader)
+
+        with open(self.selected_file, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(header)
+            for i in range(len(self.student_ids)):
+                writer.writerow([self.student_ids[i], self.corrected_grades[i]])
+
+        self.open_file_os(self.selected_file)
 
     def show_about_dialog(self):
         dialog = QMessageBox(self)
