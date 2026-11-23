@@ -69,3 +69,13 @@ QHeaderView::section {
     padding: 10px;
     font-weight: 600;
 }
+
+QMessageBox#successDialog {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+QMessageBox#successDialog QLabel {
+    background-color: #ffffff;
+    color: #000000;
+}

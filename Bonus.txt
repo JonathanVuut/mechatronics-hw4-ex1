@@ -1,2 +1,4 @@
 Bonus feature: Corrected Grades cells are color-coded in the table.
 Grades below 60 are highlighted light red (#ffcccc); grades of 60 or higher are highlighted light green (#ccffcc).
+
+Bonus feature: After the CSV file is updated and saved, a success dialog informs the user.

@@ -154,6 +154,12 @@ class GradeUpdaterWindow(QMainWindow):
             for i in range(len(self.student_ids)):
                 writer.writerow([self.student_ids[i], self.corrected_grades[i]])
 
+        success_dialog = QMessageBox(self)
+        success_dialog.setObjectName("successDialog")
+        success_dialog.setIcon(QMessageBox.Icon.Information)
+        success_dialog.setWindowTitle("Update Successful")
+        success_dialog.setText("The file has been updated and saved successfully.")
+        success_dialog.exec()
         self.open_file_os(self.selected_file)
 
     def show_about_dialog(self):
