@@ -4,6 +4,7 @@ import sys
 import csv
 
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (
     QApplication,
     QFileDialog,
@@ -120,7 +121,11 @@ class GradeUpdaterWindow(QMainWindow):
 
         for column, values in enumerate(grade_lists):
             for row, value in enumerate(values):
-                self.table.setItem(row, column, QTableWidgetItem(str(value)))
+                item = QTableWidgetItem(str(value))
+                if column == 2:
+                    color = "#ffcccc" if int(value) < 60 else "#ccffcc"
+                    item.setBackground(QColor(color))
+                self.table.setItem(row, column, item)
 
     def calculate_corrected_grades(self):
         bonus = self.bonus_input.value()
